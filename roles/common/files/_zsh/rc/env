@@ -1,0 +1,27 @@
+## Set up env
+zshrc_load_status Env
+
+SHELL=zsh
+
+export SHELL
+
+export EDITOR=vim
+export GIT_EDITOR=vim
+
+export PATH=/opt/bin:/usr/local/bin:/usr/local/sbin:~/bin:$PATH
+if [ -d ~/tools ] ; then
+  for i in $(find ~/tools -type d -name "bin") ; do
+    export PATH=$PATH:$i
+  done
+fi
+export PATH=$PATH:~/.local/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
+# When using zsh with brew on Mac
+if [[ "$ZSHRC_PLATFORM" == "Darwin" ]] ; then
+  if [ -f /usr/local/bin/zsh ] ; then
+    unalias run-help
+    autoload run-help
+    HELPDIR=/usr/local/share/zsh/helpfiles
+  fi
+fi

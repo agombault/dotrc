@@ -1,0 +1,63 @@
+## Alias
+
+zshrc_load_status Alias
+
+if [[ "$(uname)" == "Linux" ]] ; then
+  alias ls='ls -G --color'
+else
+  alias ls='ls -G'
+fi
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -al'
+
+alias cl='clear'
+
+alias week='ruby -e "require \"date\"; puts Date.commercial( Time.now.year, ARGV[0].to_i|1, 1 ).strftime( \"%d-%m-%Y\")"'
+
+kolor () { highlight -l -A $@  | less -R }
+
+function current_branch() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+echo ${ref#refs/heads/}
+}
+
+GIT_MERGE_AUTOEDIT=no
+export GIT_MERGE_AUTOEDIT
+alias ggpull='git pull origin $(current_branch)'
+#compdef ggpull=git
+alias ggpush='git push origin $(current_branch)'
+#compdef ggpush=git
+alias ggpusht='git push origin $(current_branch) --tags'
+#compdef ggpusht=git
+alias gbb='git merge-base $(current_branch) master'
+alias gsquash='git rebase -i $(gbb)'
+alias gf='git fetch && git remote update origin --prune'
+
+#alias gl='git log --oneline --graph --decorate -20 --color'
+#alias gl='git log --graph --full-history --all --color --decorate --pretty=format:"%C(yellow)%h%Creset %Cred%d%Creset %s %Cblue<%an>%Creset [%ar]"'
+alias gl='git log --graph --full-history --all --color --decorate --pretty=format:"%C(yellow)%h%Creset %C(auto)%d%Creset %s %Cblue<%an>%Creset [%ar]"'
+alias gco='git checkout'
+#compdef gco=git
+
+alias gst='git status'
+alias gls='git ls-files'
+gdf() { git diff --color $@ | diff-so-fancy }
+
+alias mci='mvn clean install'
+alias mcit='mvn clean install -DskipTests'
+alias mee='mvn exec:exec'
+
+alias tmux='TERM=screen-256color-bce tmux'
+
+alias valgrind='valgrind --dsymutil=yes'
+
+alias webserver='python -m SimpleHTTPServer'
+alias smtpdebug='python -m smtpd -n -c DebuggingServer localhost:3025'
+
+# ffmpeg
+alias ffp="ffprobe -v quiet -of json -show_format -show_streams -allowed_extensions ALL"
+
+function file_size() {
+  find . -name "$1" -exec ls -l {} \; | awk '{print $5}' | paste -s -d+ - | bc
+}

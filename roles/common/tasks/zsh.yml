@@ -1,0 +1,46 @@
+---
+- name: zsh - install zsh
+  apt:
+    name: zsh
+    update_cache: yes
+  become: true
+
+- name: zsh - copy .zshrc
+  copy:
+    src: "_zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    mode: 0644
+
+- name: zsh - copy .zsh
+  copy:
+    src: "_zsh/"
+    dest: "{{ ansible_env.HOME }}/.zsh"
+    mode: 0755
+
+- name: zsh - change user default shell
+  user:
+    name: "{{ lookup('env','USER') }}"
+    shell: /bin/zsh
+  become: true
+
+- name: zsh - make sure zshrc.local exists
+  file:
+    path: "{{ ansible_env.HOME }}/.zshrc.local/rc"
+    state: directory
+    mode: 0750
+
+- name: zsh - install k
+  git:
+    repo: https://github.com/supercrabtree/k.git
+    dest: "{{ ansible_env.HOME }}/.zshrc.local/k"
+
+- name: zsh - install zsh-syntax-highlighting
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "{{ ansible_env.HOME }}/.zshrc.local/zsh-syntax-highlighting"
+
+- name: zsh - create extensions config
+  template:
+    src: roles/common/files/zsh-extensions.j2
+    dest: "{{ ansible_env.HOME }}/.zshrc.local/rc/extensions"
+    mode: 0640

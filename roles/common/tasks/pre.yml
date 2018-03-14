@@ -1,0 +1,41 @@
+---
+- name: Install base packages
+  apt:
+    name: "{{ item }}"
+    state: installed
+    update_cache: yes
+  with_items:
+    - git
+    - build-essential
+    - curl
+    - zlib1g-dev
+    - build-essential
+    - libssl-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - libxml2-dev
+    - libxslt1-dev
+    - libcurl4-openssl-dev
+    - autojump
+    - tree
+  become: true
+
+- name: Create home bin dir
+  file:
+    path: "{{ ansible_env.HOME }}/bin"
+    state: "directory"
+    mode: 0750
+
+- name: Download Git Time Metric {{ gtm_version }}
+  get_url:
+    url: "https://github.com/git-time-metric/gtm/releases/download/v1.2.11/gtm.v1.2.11.linux.tar.gz"
+    dest: "{{ ansible_env.HOME }}/bin/gtm.v{{ gtm_version }}.linux.tar.gz"
+
+- name: Extract Git Time Metric {{ gtm_version }}
+  unarchive:
+    src: "{{ ansible_env.HOME }}/bin/gtm.v{{ gtm_version }}.linux.tar.gz"
+    dest: "{{ ansible_env.HOME }}/bin"
+    copy: no
+    creates: "{{ ansible_env.HOME }}/bin/gtm"

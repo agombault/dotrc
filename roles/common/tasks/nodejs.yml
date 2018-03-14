@@ -1,0 +1,11 @@
+---
+- name: nodejs - install NVM
+  git:
+    repo: https://github.com/creationix/nvm.git
+    dest: "{{ ansible_env.HOME }}/.nvm"
+
+- name: nodejs - install LTS
+  shell: |
+    export NVM_DIR="{{ ansible_env.HOME }}/.nvm"
+    . {{ ansible_env.HOME }}/.nvm/nvm.sh
+    nvm install --lts

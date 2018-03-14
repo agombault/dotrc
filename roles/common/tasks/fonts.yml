@@ -1,0 +1,31 @@
+---
+- name: Install fontconfig
+  apt:
+    name: fontconfig
+    update_cache: yes
+  become: true
+
+- name: Make sure fonts directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.fonts"
+    state: directory
+    mode: 0755
+
+- name: Make sure fontconfig directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/fontconfig/conf.d"
+    state: directory
+    mode: 0755
+
+- name: Install Powerline fonts
+  get_url:
+    url: "https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf"
+    dest: "{{ ansible_env.HOME }}/.fonts/PowerlineSymbols.otf"
+
+- name: Build font cache
+  command: "fc-cache -vf {{ ansible_env.HOME }}/.fonts"
+
+- name: Install Powerline conf
+  get_url:
+    url: "https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf"
+    dest: "{{ ansible_env.HOME }}/.config/fontconfig/conf.d/10-powerline-symbols.conf"

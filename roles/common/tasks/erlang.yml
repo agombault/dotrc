@@ -1,0 +1,56 @@
+---
+- name: erlang - install required packages
+  apt:
+    name: "{{ item }}"
+    state: installed
+    update_cache: yes
+  with_items:
+    - libwxgtk3.0-dev
+    - unixodbc-dev
+  become: true
+
+- name: erlang - install kerl
+  get_url:
+    url: "https://raw.githubusercontent.com/kerl/kerl/master/kerl"
+    dest: "{{ ansible_env.HOME }}/bin/kerl"
+    mode: 0755
+
+- name: erlang - install {{ erlang_version }}
+  shell: |
+    {{ ansible_env.HOME }}/bin/kerl update releases
+    KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" {{ ansible_env.HOME }}/bin/kerl build {{ erlang_version }} {{ erlang_version }}-wx
+    {{ ansible_env.HOME }}/bin/kerl install {{ erlang_version }}-wx {{ ansible_env.HOME }}/.kerl/installs/20.3-wx
+  args:
+    creates: "{{ ansible_env.HOME }}/.kerl/installs/20.3-wx/"
+
+- name: rebar3 - make sure bin dir exists
+  file:
+    path: "{{ ansible_env.HOME }}/.cache/rebar3/bin"
+    state: directory
+    mode: 0750
+
+- name: rebar3 - install
+  get_url:
+    url: "https://s3.amazonaws.com/rebar3/rebar3"
+    dest: "{{ ansible_env.HOME }}/.cache/rebar3/bin/rebar3"
+    mode: 0755
+
+- name: elixir - install kex
+  get_url:
+    url: "https://raw.githubusercontent.com/glejeune/kex/master/kex"
+    dest: "{{ ansible_env.HOME }}/bin/kex"
+    mode: 0755
+
+- name: elixir - install {{ elixir_version }}
+  shell: |
+    . {{ ansible_env.HOME }}/.kerl/installs/{{ erlang_version }}-wx/activate
+    kex
+    kex install v{{ elixir_version }}
+  args:
+    creates: "{{ ansible_env.HOME }}/.kex/installs/v{{ elixir_version }}"
+
+- name: erlang/elixir - create zsh config
+  template:
+    src: roles/common/files/erlang-elixir.j2
+    dest: "{{ ansible_env.HOME }}/.zshrc.local/rc/erlang-elixir"
+    mode: 0640

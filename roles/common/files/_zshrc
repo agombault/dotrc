@@ -1,0 +1,31 @@
+zshrc_load_status () {
+  echo "\r.zshrc load: $* ... \e[0K"
+}
+
+export ZSHRC_LOCAL=~/.zshrc.local
+if [ -d $ZSHRC_LOCAL ] ; then
+  for file in $ZSHRC_LOCAL/rc/*;
+  do
+    source $file
+  done
+fi
+
+ZSHRC_PLATFORM='unknown'
+_UNAMESTR=$(uname)
+if [[ "$_UNAMESTR" == "Linux" ]] ; then
+  ZSHRC_PLATFORM='linux'
+elif [[ "$_UNAMESTR" == "Darwin" ]] ; then
+  ZSHRC_PLATFORM='darwin'
+fi
+
+fpath=(~/.zsh/functs $fpath)
+
+for file in ~/.zsh/rc/*;
+do
+  source $file
+done
+
+[ -f /usr/bin/dircolors ] && eval `dircolors ~/.zsh/dircolors.gen`
+
+setopt autocd
+

@@ -1,0 +1,2 @@
+zshrc_load_status vf
+[[ -s "$HOME/Dropbox/Greg/Dev/github/vf/vf-comp.sh" ]] && source $HOME/Dropbox/Greg/Dev/github/vf/vf-comp.sh

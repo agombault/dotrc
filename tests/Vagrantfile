@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+  config.vm.box = 'ubuntu/xenial64'
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.name = 'dotrctests'
+    vb.memory = 8192
+  end
+
+  config.vm.network 'private_network', ip: '172.28.128.4'
+  # config.vm.network 'forwarded_port', guest: 4900, host: 4900
+
+  config.vm.synced_folder '..', '/home/ubuntu/dotrc', type: 'nfs'
+
+  config.ssh.forward_agent = true
+  config.ssh.forward_x11 = true
+end

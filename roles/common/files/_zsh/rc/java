@@ -1,0 +1,7 @@
+## Set up env
+zshrc_load_status Java
+
+# Maven
+M2_REPO=~/.m2/repository
+MAVEN_OPTS=-Xmx1024m
+

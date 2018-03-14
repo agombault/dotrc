@@ -1,0 +1,16 @@
+---
+- name: ruby - install rbenv
+  git:
+    repo: https://github.com/rbenv/rbenv.git
+    dest: "{{ ansible_env.HOME }}/.rbenv"
+
+- name: ruby - install ruby-build
+  git:
+    repo: https://github.com/rbenv/ruby-build.git
+    dest: "{{ ansible_env.HOME }}/.rbenv/plugins/ruby-build"
+
+- name: ruby - install ruby {{ ruby_version }}
+  command: "{{ ansible_env.HOME }}/.rbenv/bin/rbenv install {{ ruby_version }} -s"
+
+- name: ruby - set global version to {{ ruby_version }}
+  command: "{{ ansible_env.HOME }}/.rbenv/bin/rbenv global {{ ruby_version }}"

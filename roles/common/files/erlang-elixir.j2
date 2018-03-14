@@ -1,0 +1,4 @@
+# Erlang / Elixir
+source {{ ansible_env.HOME }}/.kerl/installs/{{ erlang_version }}-wx/activate
+source {{ ansible_env.HOME }}/.kex/installs/v{{ elixir_version }}/activate
+export PATH=$PATH:{{ ansible_env.HOME }}/.cache/rebar3/bin
