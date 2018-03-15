@@ -1,8 +1,14 @@
 ---
   - include: pre.yml
-  - include: zsh.yml
   - include: ruby.yml
+    when: install_ruby == true
   - include: nodejs.yml
-  - include: fonts.yml
-  - include: vim.yml
+    when: install_nodejs == true
   - include: erlang.yml
+    when: install_erlang == true
+  - include: zsh.yml
+    when: install_zsh == true
+  - include: fonts.yml
+    when: install_vim == true
+  - include: vim.yml
+    when: install_vim == true

@@ -1,6 +1,11 @@
 {
-  "ruby_version": "2.4.3",
+  "ruby_version": "2.5.0",
+  "install_ruby": true,
   "gtm_version": "1.2.11",
+  "install_vim": true,
+  "install_zsh": true,
+  "install_nodejs": true,
   "erlang_version": "20.3",
-  "elixir_version": "1.6.3"
+  "elixir_version": "1.6.3",
+  "install_erlang": true
 }
