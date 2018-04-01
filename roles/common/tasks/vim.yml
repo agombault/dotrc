@@ -64,7 +64,7 @@
 
 - name: neovim - install python extension
   command: "pip install neovim"
-  become: true
+  # become: true
 
 - name: neovim - install plugins
   command: nvim +PlugInstall +qall

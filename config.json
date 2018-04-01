@@ -6,6 +6,6 @@
   "install_zsh": true,
   "install_nodejs": true,
   "erlang_version": "20.3",
-  "elixir_version": "1.6.3",
+  "elixir_version": "1.6.4",
   "install_erlang": true
 }

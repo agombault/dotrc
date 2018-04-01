@@ -19,9 +19,9 @@
   shell: |
     {{ ansible_env.HOME }}/bin/kerl update releases
     KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" {{ ansible_env.HOME }}/bin/kerl build {{ erlang_version }} {{ erlang_version }}-wx
-    {{ ansible_env.HOME }}/bin/kerl install {{ erlang_version }}-wx {{ ansible_env.HOME }}/.kerl/installs/20.3-wx
+    {{ ansible_env.HOME }}/bin/kerl install {{ erlang_version }}-wx {{ ansible_env.HOME }}/.kerl/installs/{{ erlang_version }}-wx
   args:
-    creates: "{{ ansible_env.HOME }}/.kerl/installs/20.3-wx/"
+    creates: "{{ ansible_env.HOME }}/.kerl/installs/{{ erlang_version }}-wx/"
 
 - name: rebar3 - make sure bin dir exists
   file:
@@ -48,9 +48,3 @@
     kex install v{{ elixir_version }}
   args:
     creates: "{{ ansible_env.HOME }}/.kex/installs/v{{ elixir_version }}"
-
-- name: erlang/elixir - create zsh config
-  template:
-    src: roles/common/files/erlang-elixir.j2
-    dest: "{{ ansible_env.HOME }}/.zshrc.local/rc/erlang-elixir"
-    mode: 0640

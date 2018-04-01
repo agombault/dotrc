@@ -14,7 +14,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
-" Plug 'scrooloose/syntastic'
 Plug 'flazz/vim-colorschemes'
 Plug 'felixhummel/setcolors.vim'
 Plug 'sjl/gundo.vim'
@@ -86,7 +85,6 @@ Plug 'slim-template/vim-slim'
 Plug 'neovimhaskell/haskell-vim'
 
 " Other
-Plug 'dpelle/vim-Grammalecte'
 Plug 'godlygeek/tabular'
 Plug 'amadeus/vim-mjml'
 
@@ -119,16 +117,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-" syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
 " ALE
 let g:ale_fixers = [
       \  'remove_trailing_lines',
@@ -151,18 +139,6 @@ noremap <F2> :NERDTreeToggle<CR>
 let g:snips_author = "Gregoire Lejeune"
 let g:my_email_addr = "gregoire.lejeune@gmail.com"
 
-"set path to wrangler directory
-let g:erlangWranglerPath = '~/bin/wrangler'
-
-"sample wrangler bindings
-autocmd FileType erlang vnoremap <leader>e :WranglerExtractFunction<ENTER>
-autocmd FileType erlang noremap  <leader>m :WranglerRenameModule<ENTER>
-autocmd FileType erlang noremap  <leader>f :WranglerRenameFunction<ENTER>
-autocmd FileType erlang noremap  <leader>v :WranglerRenameVariable<ENTER>
-autocmd FileType erlang noremap  <leader>p :WranglerRenameProcess<ENTER>
-autocmd FileType erlang noremap  <leader>mv :WranglerMoveFunction<ENTER>
-autocmd FileType erlang noremap  <leader>u :WranglerUndo<ENTER>
-
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_list = [{
       \ 'path': '~/gregoire.lejeune@gmail.com/lejeun.es/wiki',
@@ -178,6 +154,3 @@ let g:vimwiki_list = [{
 set hidden
 syntax enable
 filetype plugin indent on
-
-" Grammalecte
-let g:grammalecte_cli_py='~/bin/dicollecte/cli.py'

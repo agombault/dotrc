@@ -8,6 +8,8 @@
     when: install_erlang == true
   - include: zsh.yml
     when: install_zsh == true
+  - include: erlang_zsh.yml
+    when: install_erlang == true and install_zsh == true
   - include: fonts.yml
     when: install_vim == true
   - include: vim.yml

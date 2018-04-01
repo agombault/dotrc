@@ -56,7 +56,8 @@ alias webserver='python -m SimpleHTTPServer'
 alias smtpdebug='python -m smtpd -n -c DebuggingServer localhost:3025'
 
 # ffmpeg
-alias ffp="ffprobe -v quiet -of json -show_format -show_streams -allowed_extensions ALL"
+alias ffp="ffprobe -v quiet -of json -show_format -show_streams"
+alias ffpa="ffprobe -v quiet -of json -show_format -show_streams -allowed_extensions ALL"
 
 function file_size() {
   find . -name "$1" -exec ls -l {} \; | awk '{print $5}' | paste -s -d+ - | bc

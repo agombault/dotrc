@@ -1,0 +1,6 @@
+---
+- name: erlang/elixir - create zsh config
+  template:
+    src: roles/common/files/erlang-elixir.j2
+    dest: "{{ ansible_env.HOME }}/.zshrc.local/rc/erlang-elixir"
+    mode: 0640
