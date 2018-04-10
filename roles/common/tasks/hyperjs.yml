@@ -1,0 +1,16 @@
+---
+- name: hyper.js - download debian package
+  get_url:
+    url: "https://releases.hyper.is/download/deb"
+    dest: "/tmp/hyper.deb"
+    mode: 0644
+
+- name: hyper.js - install
+  apt: deb="/tmp/hyper.deb"
+  become: true
+
+- name: hyper.js - copy .hyper.js
+  copy:
+    src: "_hyper.js"
+    dest: "{{ ansible_env.HOME }}/.hyper.js"
+    mode: 0644

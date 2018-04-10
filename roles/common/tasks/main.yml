@@ -14,3 +14,5 @@
     when: install_vim == true
   - include: vim.yml
     when: install_vim == true
+  - include: hyperjs.yml
+    when: install_hyperjs == true
