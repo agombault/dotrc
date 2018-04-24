@@ -30,7 +30,7 @@ set backspace=eol,start,indent
 set nu
 
 " Change list characters and use \l to show/hide list characters
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸-,eol:$,trail:~,extends:>,precedes:<,nbsp:☠
 nmap <leader>l :set list!<CR>
 
 nmap <leader>n :tabnew<CR>

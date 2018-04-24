@@ -48,3 +48,17 @@
     kex install v{{ elixir_version }}
   args:
     creates: "{{ ansible_env.HOME }}/.kex/installs/v{{ elixir_version }}"
+
+- name: erlang - install syntaxerl
+  git:
+    repo: https://github.com/ten0s/syntaxerl.git
+    dest: "{{ ansible_env.HOME }}/bin/syntaxerl"
+  register: gitclone
+
+- name: erlang - build syntaxerl
+  command: "{{ item }}"
+  with_items:
+    - make
+  args:
+    chdir: "{{ ansible_env.HOME }}/bin/syntaxerl"
+  when: gitclone.changed

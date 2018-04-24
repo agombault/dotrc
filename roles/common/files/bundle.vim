@@ -123,6 +123,8 @@ let g:ale_fixers = [
       \  'trim_whitespace'
       \ ]
 let g:ale_fix_on_save = 1
+let g:ale_erlang_erlc_options = '-I . -I src -I include'
+let g:ale_erlang_syntaxerl_executable = '~/bin/syntaxerl/syntaxerl'
 
 " Elm
 let g:elm_format_autosave = 1
